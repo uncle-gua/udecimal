@@ -6,8 +6,8 @@ import (
 	"math"
 	"testing"
 
-	. "github.com/geseq/udecimal"
 	"github.com/stretchr/testify/assert"
+	. "github.com/uncle-gua/udecimal"
 )
 
 func TestBasic(t *testing.T) {

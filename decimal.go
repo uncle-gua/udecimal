@@ -195,10 +195,6 @@ func (f Decimal) Div(f0 Decimal) Decimal {
 // Round returns a rounded (half-up, away from zero) to n decimal places
 func (f Decimal) Round(n int) Decimal {
 	round := .5
-	if f.fp < 0 {
-		round = -0.5
-	}
-
 	f0 := f.Frac()
 	f0 = f0*math.Pow10(n) + round
 	f0 = float64(int(f0)) / math.Pow10(n)
@@ -212,42 +208,27 @@ func (f Decimal) Round(n int) Decimal {
 
 // Equal returns true if the f == f0.
 func (f Decimal) Equal(f0 Decimal) bool {
-	if f.fp == f0.fp {
-		return true
-	}
-	return false
+	return f.fp == f0.fp
 }
 
 // GreaterThan returns true if the f > f0.
 func (f Decimal) GreaterThan(f0 Decimal) bool {
-	if f.fp > f0.fp {
-		return true
-	}
-	return false
+	return f.fp > f0.fp
 }
 
 // GreaterThaOrEqual returns true if the f >= f0.
 func (f Decimal) GreaterThanOrEqual(f0 Decimal) bool {
-	if f.fp >= f0.fp {
-		return true
-	}
-	return false
+	return f.fp >= f0.fp
 }
 
 // LessThan returns true if the f < f0.
 func (f Decimal) LessThan(f0 Decimal) bool {
-	if f.fp < f0.fp {
-		return true
-	}
-	return false
+	return f.fp < f0.fp
 }
 
 // LessThan returns true if the f <= f0.
 func (f Decimal) LessThanOrEqual(f0 Decimal) bool {
-	if f.fp <= f0.fp {
-		return true
-	}
-	return false
+	return f.fp <= f0.fp
 }
 
 // Cmp compares two Decimal. If f == f0, return 0. If f > f0, return 1. If f < f0, return -1.
@@ -372,6 +353,7 @@ func ReadFrom(r io.ByteReader) (Decimal, error) {
 // UnmarshalJSON implements the json.Unmarshaler interface.
 func (f *Decimal) UnmarshalJSON(bytes []byte) error {
 	s := string(bytes)
+	s = strings.Trim(s, `"`)
 	if s == "null" {
 		return nil
 	}
@@ -379,7 +361,7 @@ func (f *Decimal) UnmarshalJSON(bytes []byte) error {
 	decimal, err := Parse(s)
 	*f = decimal
 	if err != nil {
-		return fmt.Errorf("Error decoding string '%s': %s", s, err)
+		return fmt.Errorf("error decoding string '%s': %s", s, err)
 	}
 	return nil
 }

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	decimal "github.com/geseq/udecimal"
+	decimal "github.com/uncle-gua/udecimal"
 )
 
 func main() {

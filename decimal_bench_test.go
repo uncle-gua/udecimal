@@ -148,35 +148,35 @@ func BenchmarkStringDecimal(b *testing.B) {
 	f0 := MustParseFloat(123456789.12345)
 
 	for i := 0; i < b.N; i++ {
-		f0.String()
+		_ = f0.String()
 	}
 }
 func BenchmarkStringNDecimal(b *testing.B) {
 	f0 := MustParseFloat(123456789.12345)
 
 	for i := 0; i < b.N; i++ {
-		f0.StringN(5)
+		_ = f0.StringN(5)
 	}
 }
 func BenchmarkStringShopspringDecimal(b *testing.B) {
 	f0 := decimal.NewFromFloat(123456789.12345)
 
 	for i := 0; i < b.N; i++ {
-		f0.String()
+		_ = f0.String()
 	}
 }
 func BenchmarkStringBigInt(b *testing.B) {
 	f0 := big.NewInt(123456789)
 
 	for i := 0; i < b.N; i++ {
-		f0.String()
+		_ = f0.String()
 	}
 }
 func BenchmarkStringBigFloat(b *testing.B) {
 	f0 := big.NewFloat(123456789.12345)
 
 	for i := 0; i < b.N; i++ {
-		f0.String()
+		_ = f0.String()
 	}
 }
 
